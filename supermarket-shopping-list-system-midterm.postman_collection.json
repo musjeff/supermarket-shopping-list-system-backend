@@ -1,0 +1,243 @@
+{
+  "info": {
+    "_postman_id": "2f9b4c11-8d50-4a13-9cb0-202610160001",
+    "name": "Supermarket Shopping List System Midterm",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8083"
+    },
+    {
+      "key": "attendantId",
+      "value": "REPLACE_WITH_UUID"
+    },
+    {
+      "key": "departmentId",
+      "value": "REPLACE_WITH_UUID"
+    },
+    {
+      "key": "shopperId",
+      "value": "REPLACE_WITH_UUID"
+    },
+    {
+      "key": "shoppingListId",
+      "value": "REPLACE_WITH_UUID"
+    },
+    {
+      "key": "purchasedItemId",
+      "value": "REPLACE_WITH_UUID"
+    }
+  ],
+  "item": [
+    {
+      "name": "A1 - Domain model tables",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/departments/all"
+      },
+      "response": []
+    },
+    {
+      "name": "A2 - CRUD endpoints",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/shoppers/all"
+      },
+      "response": []
+    },
+    {
+      "name": "B1 - Shoppers by last name",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/shoppers/by-last-name?lastName=musana"
+      },
+      "response": []
+    },
+    {
+      "name": "B2 - Lists by status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/shopping-lists/by-status?status=DRAFTED"
+      },
+      "response": []
+    },
+    {
+      "name": "B3 - Lists in date range",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/shopping-lists/between?start=2026-10-01&end=2026-10-31"
+      },
+      "response": []
+    },
+    {
+      "name": "C1 - Attendants by department",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/attendants/by-department?name=produce"
+      },
+      "response": []
+    },
+    {
+      "name": "C2 - Free tills",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/tills/free"
+      },
+      "response": []
+    },
+    {
+      "name": "C3 - Unused departments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/departments/unused"
+      },
+      "response": []
+    },
+    {
+      "name": "C4 - Shoppers of attendant",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/shoppers/of-attendant/{{attendantId}}"
+      },
+      "response": []
+    },
+    {
+      "name": "D1 - Safe save shopping list",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/shopping-lists/save",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"shoppingDate\": \"2026-10-20\",\n  \"status\": \"FULFILLED\",\n  \"title\": \"Demo list\",\n  \"budget\": 50000,\n  \"shopper\": {\n    \"id\": \"{{shopperId}}\"\n  },\n  \"attendant\": {\n    \"id\": \"{{attendantId}}\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D2 - Change list status",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": "{{baseUrl}}/api/shopping-lists/{{shoppingListId}}/status?status=SUBMITTED"
+      },
+      "response": []
+    },
+    {
+      "name": "D3 - Add department to attendant",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": "{{baseUrl}}/api/attendants/{{attendantId}}/departments/{{departmentId}}"
+      },
+      "response": []
+    },
+    {
+      "name": "D4 - Move attendant to till",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": "{{baseUrl}}/api/attendants/{{attendantId}}/till?tillNumber=4"
+      },
+      "response": []
+    },
+    {
+      "name": "E1 - Save purchased item",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/purchased-items/save?shoppingListId={{shoppingListId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"itemName\": \"Cooking oil 1L\",\n  \"note\": \"Postman test\",\n  \"quantity\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E2 - Shopper purchase history",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/purchased-items/shopper/LC-77812"
+      },
+      "response": []
+    },
+    {
+      "name": "E3 - Delete purchased item",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/purchased-items/delete/{{purchasedItemId}}"
+      },
+      "response": []
+    },
+    {
+      "name": "F1 - List counts by status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/shopping-lists/stats/by-status"
+      },
+      "response": []
+    },
+    {
+      "name": "F2 - Cancel attendant day",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": "{{baseUrl}}/api/shopping-lists/cancel-day?attendantId={{attendantId}}&date=2026-10-20"
+      },
+      "response": []
+    },
+    {
+      "name": "Bonus - Dashboard summary",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/dashboard/summary"
+      },
+      "response": []
+    },
+    {
+      "name": "Bonus - Page shopping lists",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/shopping-lists/page?page=0&size=5&sort=shoppingDate,desc"
+      },
+      "response": []
+    }
+  ]
+}
